@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "paths": {
+      "fractal": [
+        "./stubs/fractal.d.ts"
+      ],
+      "fractal/effect": [
+        "./stubs/effect.d.ts"
+      ]
+    }
+  },
+  "include": [
+    "effect/**/*.ts",
+    "ts/**/*.ts",
+    "stubs/**/*.ts"
+  ]
+}

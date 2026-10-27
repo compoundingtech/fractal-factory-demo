@@ -1,0 +1,30 @@
+// A standing maintainer per repo, in its checkout.
+version 2
+agent "app/maintainer" {
+  lifecycle "standing"
+  host "local"
+  workspace "/work/app"
+  // Version bumps need little reasoning
+  harness "codex" {
+    model "gpt-5.6-sol"
+    effort "medium"
+  }
+}
+agent "api/maintainer" {
+  lifecycle "standing"
+  host "local"
+  workspace "/work/api"
+  harness "codex" {
+    model "gpt-5.6-sol"
+    effort "medium"
+  }
+}
+agent "docs/maintainer" {
+  lifecycle "standing"
+  host "local"
+  workspace "/work/docs"
+  harness "codex" {
+    model "gpt-5.6-sol"
+    effort "medium"
+  }
+}

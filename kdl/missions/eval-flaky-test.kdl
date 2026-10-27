@@ -1,0 +1,60 @@
+// Score agent setups on the same flaky test.
+version 2
+mission "eval/flaky-test" state="ready" \
+    timeout="20m" report-to="agent/eval/reporter" {
+  goal "One report compares every setup's fix."
+  constraint "Never disable harness features to pass."
+  // The same task once per setup, the suite judges
+  step "codex" timeout="10m" {
+    assigned-to "agent/eval/codex"
+    goal "Fix the flaky test in acme/app."
+    gate "the suite passes" {
+      exec "pnpm test"
+      host "local"
+      workspace "/work/eval/codex"
+      time-limit "5m"
+    }
+  }
+  step "claude" timeout="10m" {
+    assigned-to "agent/eval/claude"
+    goal "Fix the flaky test in acme/app."
+    gate "the suite passes" {
+      exec "pnpm test"
+      host "local"
+      workspace "/work/eval/claude"
+      time-limit "5m"
+    }
+  }
+  step "candidate" timeout="10m" {
+    assigned-to "agent/eval/candidate"
+    goal "Fix the flaky test in acme/app."
+    gate "the suite passes" {
+      exec "pnpm test"
+      host "local"
+      workspace "/work/eval/candidate"
+      time-limit "5m"
+    }
+  }
+  step "compare" timeout="5m" {
+    assigned-to "agent/eval/reporter"
+    depends-on {
+      step "codex" completed
+      step "claude" completed
+      step "candidate" completed
+    }
+    goal "Compare the diffs and test runs."
+    gate "report published" {
+      document "doc/eval/flaky-test/report"
+    }
+    // A model checks the report is fair
+    gate "the report is fair" type="llm" {
+      model "gpt-5.6-sol"
+      host "local"
+      workspace "/work/eval"
+      tools "shell" "git"
+      token-budget 20000
+      time-limit "4m"
+      prompt "Is the report fair to each diff?"
+    }
+  }
+}
