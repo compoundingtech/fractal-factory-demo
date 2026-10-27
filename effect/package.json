@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "imports": {
+    "#agents/*": "./agents/*.ts",
+    "#missions/*": "./missions/*.ts",
+    "#services/*": "./services/*.d.ts"
+  }
+}

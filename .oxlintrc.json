@@ -1,0 +1,47 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
+  "plugins": [
+    "import",
+    "typescript",
+    "unicorn",
+    "oxc"
+  ],
+  "jsPlugins": ["./.cache/effect-utils/plugin.ts"],
+  "ignorePatterns": [
+    "node_modules/**",
+    ".cache/**",
+    "**/*.d.ts"
+  ],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "pedantic": "off",
+    "perf": "warn",
+    "style": "off",
+    "restriction": "off"
+  },
+  "rules": {
+    "import/no-dynamic-require": [
+      "warn",
+      { "esmodule": true }
+    ],
+    "oxc/no-barrel-file": ["warn", { "threshold": 0 }],
+    "overeng/named-args": "error",
+    "import/no-commonjs": "error",
+    "import/no-cycle": "warn",
+    "no-await-in-loop": "error",
+    "no-underscore-dangle": [
+      "warn",
+      { "allow": ["_tag"] }
+    ],
+    "func-style": [
+      "error",
+      "expression",
+      { "allowArrowFunctions": true }
+    ],
+    "overeng/explicit-boolean-compare": "error",
+    "overeng/exports-first": "error",
+    "overeng/jsdoc-require-exports": "error",
+    "typescript/consistent-type-imports": "warn"
+  }
+}

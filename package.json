@@ -1,0 +1,22 @@
+{
+  "name": "fractal-factory-demo",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.7.0",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "lint": "node scripts/prepare-lint.mjs && oxlint"
+  },
+  "dependencies": {
+    "effect": "3.19.8",
+    "@effect/platform": "0.93.5",
+    "@opentelemetry/api": "1.9.0"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "oxfmt": "0.41.0",
+    "oxlint": "1.56.0"
+  }
+}
