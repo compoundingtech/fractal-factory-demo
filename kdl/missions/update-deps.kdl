@@ -1,0 +1,48 @@
+// Weekly dependency updates are due.
+// One bot per repo opens and tests its updates.
+// A combined report shows what passed.
+version 2
+mission "update-deps" state="ready" \
+    timeout="2h" report-to="agent/app-deps-bot" {
+  goal "Every repo runs current deps, CI green."
+  constraint "No major bumps without a migration note."
+  // Repos can update without waiting for each other
+  step "app" timeout="1h" {
+    assigned-to "agent/app-deps-bot"
+    goal "A green deps PR in acme/app."
+    // Tests must pass before an update counts as done
+    gate "CI passed" {
+      ci-passed "ci" repo="acme/app" \
+          branch="deps/update"
+    }
+  }
+  step "api" timeout="1h" {
+    assigned-to "agent/api-deps-bot"
+    goal "A green deps PR in acme/api."
+    gate "CI passed" {
+      ci-passed "ci" repo="acme/api" \
+          branch="deps/update"
+    }
+  }
+  step "docs" timeout="1h" {
+    assigned-to "agent/docs-deps-bot"
+    goal "A green deps PR in acme/docs."
+    gate "CI passed" {
+      ci-passed "ci" repo="acme/docs" \
+          branch="deps/update"
+    }
+  }
+  // The report needs results from every repo
+  step "report" timeout="15m" {
+    assigned-to "agent/app-deps-bot"
+    depends-on {
+      step "app" completed
+      step "api" completed
+      step "docs" completed
+    }
+    goal "A report links each PR and CI run."
+    gate "report published" {
+      document "doc/deps/report"
+    }
+  }
+}

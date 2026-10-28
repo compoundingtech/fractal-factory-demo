@@ -1,6 +1,6 @@
-// One contender per setup, and the reporter.
 version 2
-agent "eval/codex" {
+// Repairs the flaky test with the Codex setup
+agent "codex-contender" {
   lifecycle "bounded"
   host "local"
   workspace "/work/eval/codex"
@@ -9,7 +9,8 @@ agent "eval/codex" {
     effort "medium"
   }
 }
-agent "eval/claude" {
+// Repairs the flaky test with the Claude setup
+agent "claude-contender" {
   lifecycle "bounded"
   host "local"
   workspace "/work/eval/claude"
@@ -18,16 +19,18 @@ agent "eval/claude" {
     effort "medium"
   }
 }
-agent "eval/candidate" {
+// Repairs the flaky test with the candidate setup
+agent "candidate-contender" {
   lifecycle "bounded"
   host "local"
   workspace "/work/eval/candidate"
-  // The setup under test, swapped per eval run
+  // This setup changes between comparison runs
   harness "opencode" {
     model "kimi-k3"
   }
 }
-agent "eval/reporter" {
+// Compares the repairs and publishes a ranked report
+agent "eval-judge" {
   lifecycle "standing"
   host "local"
   workspace "/work/eval"

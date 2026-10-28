@@ -1,0 +1,42 @@
+// A pull request is ready for review.
+// A tester and reviewer gather the evidence.
+// You decide whether to sign off the review.
+version 2
+mission "review-prs" state="ready" \
+    timeout="2h" report-to="agent/pr-reviewer" {
+  goal "The PR has an evidence-backed review."
+  constraint "Review only. Never approve or merge."
+  // The input keeps the review tied to one PR
+  input "source" kind="resource"
+  // Tests and context can be gathered independently
+  step "reproduce" timeout="20m" {
+    assigned-to "agent/pr-tester"
+    goal "Run the tests of ${input.source}."
+  }
+  step "context" timeout="15m" {
+    assigned-to "agent/pr-reviewer"
+    goal "Find the issues behind ${input.source}."
+  }
+  // Findings need both test results and context
+  step "review" timeout="30m" {
+    assigned-to "agent/pr-reviewer"
+    depends-on {
+      step "reproduce" completed
+      step "context" completed
+    }
+    goal "Publish findings with evidence."
+    gate "review published" {
+      document "doc/github/review"
+    }
+  }
+  // Sharing the review needs your sign-off
+  step "sign-off" timeout="30m" {
+    depends-on {
+      step "review" completed
+    }
+    gate "You sign off the review" type="human" {
+      reviewer "person/you"
+      question "Is this review ready to share?"
+    }
+  }
+}

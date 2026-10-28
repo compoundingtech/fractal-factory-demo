@@ -3,19 +3,19 @@ import { Effect, Layer } from 'effect'
 import { Fractal } from 'fractal/effect'
 
 const adapters = Layer.mergeAll(
-  // Launches each agent by its harness.kind
+  // Start each agent with its chosen harness
   Fractal.Harness.local,
   Fractal.Workspace.local,
   Fractal.Host.local,
 )
 
-/** The local engine, given the adapters it needs. */
+/** Run locally with the required tools. */
 export const runtime = Fractal.Engine.local.pipe(
-  // provideMerge keeps the adapters for steps too
+  // Keep these tools available to mission steps
   Layer.provideMerge(adapters),
 )
 
-/** Starts the mission or resumes its journal. */
+/** Start the mission or resume saved work. */
 export const main = Fractal.run(evalFlakyTest).pipe(
   Effect.provide(runtime),
 )

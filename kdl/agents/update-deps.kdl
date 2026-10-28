@@ -1,0 +1,32 @@
+version 2
+// Opens and tests dependency updates for the app
+agent "app-deps-bot" {
+  lifecycle "standing"
+  host "local"
+  workspace "/work/app"
+  // Routine updates use medium effort
+  harness "codex" {
+    model "gpt-5.6-sol"
+    effort "medium"
+  }
+}
+// Opens and tests dependency updates for the API
+agent "api-deps-bot" {
+  lifecycle "standing"
+  host "local"
+  workspace "/work/api"
+  harness "codex" {
+    model "gpt-5.6-sol"
+    effort "medium"
+  }
+}
+// Opens and tests dependency updates for the docs
+agent "docs-deps-bot" {
+  lifecycle "standing"
+  host "local"
+  workspace "/work/docs"
+  harness "codex" {
+    model "gpt-5.6-sol"
+    effort "medium"
+  }
+}

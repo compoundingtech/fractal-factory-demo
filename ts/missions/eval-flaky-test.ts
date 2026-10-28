@@ -1,6 +1,10 @@
+// A flaky test needs a reliable repair.
+// Three setups try the same task and tests.
+// A judge checks the ranked comparison report.
+
 import {
   contender,
-  reporter,
+  evalJudge,
 } from '#agents/eval-flaky-test'
 import { Schema } from 'effect'
 import { Fractal } from 'fractal'
@@ -11,19 +15,19 @@ const setups = [
   'candidate',
 ] as const
 
-// The run returns this, decoded and checked
+// Check the report shape before returning it
 const Report = Schema.Struct({
   ranking: Schema.Array(Schema.Literal(...setups)),
   summary: Schema.String,
 })
 
-/** Score agent setups on the same flaky test. */
+/** Compare repairs for the same flaky test. */
 export default Fractal.mission(
   {
-    id: 'eval/flaky-test',
+    id: 'eval-flaky-test',
     state: 'ready',
     timeout: '20m',
-    reportTo: reporter,
+    reportTo: evalJudge,
     goal: "One report compares every setup's fix.",
     constraints: [
       'Never disable harness features to pass.',
@@ -31,7 +35,8 @@ export default Fractal.mission(
     success: Report,
   },
   async () => {
-    // The same task once per setup, the suite judges
+    // Use the same task and tests for a fair
+    // comparison
     await Promise.all(
       setups.map((setup) =>
         Fractal.Worker.provide(contender(setup), () =>
@@ -51,7 +56,7 @@ export default Fractal.mission(
         ),
       ),
     )
-    return Fractal.Worker.provide(reporter, () =>
+    return Fractal.Worker.provide(evalJudge, () =>
       Fractal.step(
         {
           id: 'compare',
@@ -65,7 +70,8 @@ export default Fractal.mission(
               name: 'report published',
               document: 'doc/eval/flaky-test/report',
             }),
-            // A model checks the report is fair
+            // Check that the comparison treats each
+            // fix fairly
             Fractal.gate({
               name: 'the report is fair',
               llm: {

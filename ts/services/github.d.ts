@@ -1,4 +1,4 @@
-/** Async provider design target used by the examples. */
+/** GitHub provider types for the async examples. */
 export declare const github: {
   issues(query: {
     repo: string

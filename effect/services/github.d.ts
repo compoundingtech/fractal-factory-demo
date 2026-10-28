@@ -1,5 +1,5 @@
 import type { Effect, Layer, Stream } from 'effect'
-/** Journal-aware provider design target used by the examples. */
+/** GitHub provider types for the Effect examples. */
 export declare namespace GitHub {
   const Default: Layer.Layer<never>
   function issues(query: {

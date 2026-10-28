@@ -1,12 +1,14 @@
-// Score agent setups on the same flaky test.
+// A flaky test needs a reliable repair.
+// Three setups try the same task and tests.
+// A judge checks the ranked comparison report.
 version 2
-mission "eval/flaky-test" state="ready" \
-    timeout="20m" report-to="agent/eval/reporter" {
+mission "eval-flaky-test" state="ready" \
+    timeout="20m" report-to="agent/eval-judge" {
   goal "One report compares every setup's fix."
   constraint "Never disable harness features to pass."
-  // The same task once per setup, the suite judges
+  // The same task and tests make repairs comparable
   step "codex" timeout="10m" {
-    assigned-to "agent/eval/codex"
+    assigned-to "agent/codex-contender"
     goal "Fix the flaky test in acme/app."
     gate "the suite passes" {
       exec "pnpm test"
@@ -16,7 +18,7 @@ mission "eval/flaky-test" state="ready" \
     }
   }
   step "claude" timeout="10m" {
-    assigned-to "agent/eval/claude"
+    assigned-to "agent/claude-contender"
     goal "Fix the flaky test in acme/app."
     gate "the suite passes" {
       exec "pnpm test"
@@ -26,7 +28,7 @@ mission "eval/flaky-test" state="ready" \
     }
   }
   step "candidate" timeout="10m" {
-    assigned-to "agent/eval/candidate"
+    assigned-to "agent/candidate-contender"
     goal "Fix the flaky test in acme/app."
     gate "the suite passes" {
       exec "pnpm test"
@@ -35,8 +37,9 @@ mission "eval/flaky-test" state="ready" \
       time-limit "5m"
     }
   }
+  // Ranking needs results from all three setups
   step "compare" timeout="5m" {
-    assigned-to "agent/eval/reporter"
+    assigned-to "agent/eval-judge"
     depends-on {
       step "codex" completed
       step "claude" completed
@@ -46,7 +49,7 @@ mission "eval/flaky-test" state="ready" \
     gate "report published" {
       document "doc/eval/flaky-test/report"
     }
-    // A model checks the report is fair
+    // A separate check keeps the ranking fair
     gate "the report is fair" type="llm" {
       model "gpt-5.6-sol"
       host "local"
