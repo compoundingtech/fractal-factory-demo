@@ -1,0 +1,13 @@
+// Start dependency updates every Monday morning
+version 2
+schedule "update-deps" {
+  every "7d"
+  anchor "2026-10-26T07:00:00Z"
+  // One run is enough to catch up after downtime
+  catch-up "latest"
+  work {
+    // Use the current published mission when ready
+    mission "update-deps"
+    workspace "/work/factory"
+  }
+}

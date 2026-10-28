@@ -11,25 +11,25 @@ const harnesses = {
     model: 'claude-opus-5',
     effort: 'medium',
   },
-  // The setup under test, swapped per eval run
+  // Change this setup to compare another harness
   candidate: { kind: 'opencode', model: 'kimi-k3' },
 } as const
 
-/** One contender per setup, in its own checkout. */
+/** Creates one repair contender per setup. */
 export const contender = (
   setup: keyof typeof harnesses,
 ) =>
   Fractal.agent({
-    id: `eval/${setup}`,
+    id: `${setup}-contender`,
     lifecycle: 'bounded',
     host: 'local',
     workspace: `/work/eval/${setup}`,
     harness: harnesses[setup],
   })
 
-/** Compares the contenders in one report. */
-export const reporter = Fractal.agent({
-  id: 'eval/reporter',
+/** Checks the ranked repair comparison. */
+export const evalJudge = Fractal.agent({
+  id: 'eval-judge',
   lifecycle: 'standing',
   host: 'local',
   workspace: '/work/eval',

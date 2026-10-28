@@ -1,15 +1,15 @@
 import evalFlakyTest from '#missions/eval-flaky-test'
 import { Fractal } from 'fractal'
 
-/** The local engine and the adapters it drives. */
+/** Run locally with the required tools. */
 export const runtime = Fractal.runtime({
   engine: Fractal.Engine.local(),
-  // Launches each agent by its harness.kind
+  // Start each agent with its chosen harness
   harness: Fractal.Harness.local(),
   workspace: Fractal.Workspace.local(),
   host: Fractal.Host.local(),
 })
 
-/** Starts the mission or resumes its journal. */
+/** Start the mission or resume saved work. */
 export const main = () =>
   Fractal.run(evalFlakyTest, { runtime })

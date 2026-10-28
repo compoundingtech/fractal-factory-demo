@@ -29,12 +29,21 @@ KDL steps without an explicit or inherited worker selector are agentless.
 - `stubs/` holds the proposed Fractal API declarations
 
 The seven missions cover updating dependencies, shipping comments,
-reviewing pull requests, improving the factory, burning down a backlog,
-comparing agent setups and keeping main green. Names such as `acme/app`
-and `ada` are fictional.
+reviewing pull requests, improving the factory, fixing a backlog,
+comparing agent setups and repairing main's checks. Their file names
+and mission ids are `update-deps`, `ship-comments`, `review-prs`,
+`improve-factory`, `fix-backlog`, `eval-flaky-test` and `fix-ci`.
+`update-deps` also names the weekly schedule.
+
+Agent ids are flat job names such as `api-dev` and `backlog-fixer`,
+unique across scenarios. The person `you` means the reader deciding
+whether to approve the work, referenced as `person/you` in KDL.
+Repository names such as `acme/app` are fictional.
 
 Package import aliases keep boundary imports short, for example
-`#agents/review`. Comments remain part of the examples.
+`#agents/review-prs`. Each mission starts with its story, and its step
+comments explain why the work is ordered that way. Agent files describe
+each job. Effect, TypeScript and KDL use the same names and roles.
 
 ## Checks
 

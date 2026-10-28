@@ -1,0 +1,52 @@
+version 2
+// Builds the shared comments API
+agent "api-dev" {
+  lifecycle "standing"
+  host "local"
+  workspace "/work/app"
+  harness "codex" {
+    model "gpt-5.6-sol"
+    effort "high"
+  }
+}
+// Builds comments for the web
+agent "web-dev" {
+  lifecycle "standing"
+  host "local"
+  workspace "/work/app"
+  harness "codex" {
+    model "gpt-5.6-sol"
+    effort "high"
+  }
+}
+// Builds comments for iOS
+agent "ios-dev" {
+  lifecycle "standing"
+  host "local"
+  workspace "/work/app"
+  harness "codex" {
+    model "gpt-5.6-sol"
+    effort "high"
+  }
+}
+// Builds comments for Android
+agent "android-dev" {
+  lifecycle "standing"
+  host "local"
+  workspace "/work/app"
+  harness "codex" {
+    model "gpt-5.6-sol"
+    effort "high"
+  }
+}
+// Tests comments across every platform
+agent "qa-tester" {
+  lifecycle "standing"
+  host "local"
+  workspace "/work/app"
+  harness "codex" {
+    model "gpt-5.6-sol"
+    effort "high"
+  }
+}
+person "you"
