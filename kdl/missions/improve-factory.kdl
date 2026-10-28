@@ -4,7 +4,7 @@
 version 2
 mission "improve-factory" state="ready" \
     timeout="2d" report-to="agent/factory-editor" {
-  goal "Fix the week's biggest factory problem."
+  goal "The week's worst friction is gone."
   constraint "Only edit declarations. Keep every gate."
   // Failed runs show what needs to change
   step "failures" timeout="30m" {

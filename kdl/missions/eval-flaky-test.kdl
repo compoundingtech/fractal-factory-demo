@@ -45,7 +45,7 @@ mission "eval-flaky-test" state="ready" \
       step "claude" completed
       step "candidate" completed
     }
-    goal "Rank the repairs using diffs and test runs."
+    goal "Compare the diffs and test runs."
     gate "report published" {
       document "doc/eval/flaky-test/report"
     }

@@ -27,7 +27,7 @@ export const contender = (
     harness: harnesses[setup],
   })
 
-/** Checks the ranked repair comparison. */
+/** Compares the repairs and ranks them. */
 export const evalJudge = Fractal.agent({
   id: 'eval-judge',
   lifecycle: 'standing',

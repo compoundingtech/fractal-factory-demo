@@ -14,7 +14,7 @@ agent "factory-editor" {
   lifecycle "standing"
   host "local"
   workspace "/work/factory"
-  // Factory changes use high effort
+  // Factory edits need careful reasoning
   harness "codex" {
     model "gpt-5.6-sol"
     effort "high"
