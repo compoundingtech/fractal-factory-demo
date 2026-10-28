@@ -12,6 +12,12 @@ The GitHub provider declarations are also design targets.
 These declarations validate types but do not implement execution, durable
 journaling, agent launch, authentication or graph publication.
 
+Steps derive worker needs from their code, not an `agentless` option.
+An Effect step with a body preserves that body's context requirements.
+Only worker turns require `Fractal.Worker`, so gates and approvals alone
+do not acquire a worker. The async/await projection follows the same rule.
+KDL steps without an explicit or inherited worker selector are agentless.
+
 ## Layout
 
 - `effect/` — Effect programs using the real Effect 3 library

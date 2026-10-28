@@ -50,7 +50,7 @@ export default Fractal.mission(
       ),
     )
     await Fractal.step(
-      { id: 'sign-off', agentless: true },
+      { id: 'sign-off' },
       async () => {
         try {
           const answer = await Fractal.ask({

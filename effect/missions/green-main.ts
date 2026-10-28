@@ -11,7 +11,7 @@ const tokens = Metric.counter('agent_tokens').pipe(
 
 // A step, so a replay reads the journaled answer
 const inspect = Fractal.step(
-  { id: 'inspect', agentless: true },
+  { id: 'inspect' },
   GitHub.checkRun({
     repo: 'acme/app',
     ref: 'main',

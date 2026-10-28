@@ -16,16 +16,14 @@ const closed = metrics
 
 // Typed issues, streamed oldest first, journaled
 const inspect = () =>
-  Fractal.step(
-    { id: 'inspect', agentless: true },
-    () =>
-      Array.fromAsync(
-        github.issues({
-          repo,
-          label: 'backlog',
-          state: 'open',
-        }),
-      ),
+  Fractal.step({ id: 'inspect' }, () =>
+    Array.fromAsync(
+      github.issues({
+        repo,
+        label: 'backlog',
+        state: 'open',
+      }),
+    ),
   )
 
 const round = async (n: number): Promise<void> => {

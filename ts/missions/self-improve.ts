@@ -70,18 +70,15 @@ export default Fractal.mission(
       ),
     )
     // Only a yes goes on, a no ends the mission
-    await Fractal.step(
-      { id: 'approve', agentless: true },
-      async () => {
-        const answer = await Fractal.ask({
-          name: 'You approve the change',
-          reviewer: ada,
-          question: 'Apply the improved declarations?',
-        })
-        if (answer._tag === 'Rejected')
-          throw new Declined()
-      },
-    )
+    await Fractal.step({ id: 'approve' }, async () => {
+      const answer = await Fractal.ask({
+        name: 'You approve the change',
+        reviewer: ada,
+        question: 'Apply the improved declarations?',
+      })
+      if (answer._tag === 'Rejected')
+        throw new Declined()
+    })
     await Fractal.Worker.provide(steward, () =>
       Fractal.step(
         {

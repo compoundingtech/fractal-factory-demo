@@ -83,7 +83,7 @@ export default Fractal.mission(
       )
       // A person decides, a no stops the release
       yield* Fractal.step(
-        { id: 'approve', agentless: true },
+        { id: 'approve' },
         Fractal.ask({
           name: 'You approve the release',
           reviewer: ada,

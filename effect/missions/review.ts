@@ -60,7 +60,7 @@ export default Fractal.mission(
         Effect.provide(Fractal.Worker.layer(reviewer)),
       )
       yield* Fractal.step(
-        { id: 'sign-off', agentless: true },
+        { id: 'sign-off' },
         Fractal.ask({
           name: 'You sign off the review',
           reviewer: ada,

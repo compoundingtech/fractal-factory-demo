@@ -62,7 +62,6 @@ mission "collab/comments" state="ready" \
   }
   // No agent here, the step waits for a person
   step "approve" {
-    agentless
     depends-on {
       step "parity" completed
     }
