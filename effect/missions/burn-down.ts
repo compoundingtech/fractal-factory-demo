@@ -16,7 +16,7 @@ const closed = Metric.counter('issues_closed').pipe(
 
 // Typed issues, streamed oldest first, journaled
 const inspect = Fractal.step(
-  { id: 'inspect', agentless: true },
+  { id: 'inspect' },
   GitHub.issues({
     repo,
     label: 'backlog',

@@ -28,7 +28,6 @@ mission "github/review" state="ready" \
   }
   // No answer in time fails it as unsigned
   step "sign-off" timeout="30m" {
-    agentless
     depends-on {
       step "review" completed
     }

@@ -11,17 +11,14 @@ const tokens = metrics
 
 // A step, so a replay reads the journaled answer
 const inspect = () =>
-  Fractal.step(
-    { id: 'inspect', agentless: true },
-    async () => {
-      const run = await github.checkRun({
-        repo: 'acme/app',
-        ref: 'main',
-        name: 'ci',
-      })
-      return run.conclusion === 'success'
-    },
-  )
+  Fractal.step({ id: 'inspect' }, async () => {
+    const run = await github.checkRun({
+      repo: 'acme/app',
+      ref: 'main',
+      name: 'ci',
+    })
+    return run.conclusion === 'success'
+  })
 
 const round = async (n: number): Promise<void> => {
   if ((await inspect()) === true) return

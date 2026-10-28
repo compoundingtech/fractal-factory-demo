@@ -73,17 +73,14 @@ export default Fractal.mission(
       ),
     )
     // A person decides, a no stops the release
-    await Fractal.step(
-      { id: 'approve', agentless: true },
-      async () => {
-        const answer = await Fractal.ask({
-          name: 'You approve the release',
-          reviewer: ada,
-          question: 'Ship comments on every platform?',
-        })
-        if (answer._tag === 'Rejected')
-          throw new Declined()
-      },
-    )
+    await Fractal.step({ id: 'approve' }, async () => {
+      const answer = await Fractal.ask({
+        name: 'You approve the release',
+        reviewer: ada,
+        question: 'Ship comments on every platform?',
+      })
+      if (answer._tag === 'Rejected')
+        throw new Declined()
+    })
   },
 )

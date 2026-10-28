@@ -60,21 +60,15 @@ export namespace Fractal {
     options: StepOptions,
   ): Effect.Effect<Turn, never, Worker>
   function step<TValue, TError, TContext>(
-    options: StepOptions & {
-      readonly agentless: true
-    },
-    body: Effect.Effect<TValue, TError, TContext>,
-  ): Effect.Effect<TValue, TError, TContext>
-  function step<TValue, TError, TContext>(
     options: StepOptions,
     body: Effect.Effect<TValue, TError, TContext>,
-  ): Effect.Effect<TValue, TError, TContext | Worker>
+  ): Effect.Effect<TValue, TError, TContext>
   function step<TSuccess, TValue, TError, TContext>(
     options: StepOptions<TSuccess> & {
       readonly success: Schema.Schema<TSuccess>
     },
     body: Effect.Effect<TValue, TError, TContext>,
-  ): Effect.Effect<TSuccess, TError, TContext | Worker>
+  ): Effect.Effect<TSuccess, TError, TContext>
   function mission<
     TPayload = void,
     TSuccess = void,

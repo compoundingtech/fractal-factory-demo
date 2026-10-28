@@ -2,7 +2,7 @@
   "name": "fractal-factory-demo",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@12.7.0",
+  "packageManager": "pnpm@12.15.0",
   "scripts": {
     "typecheck": "tsc --noEmit",
     "format": "oxfmt",

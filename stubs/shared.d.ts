@@ -28,7 +28,6 @@ export interface StepOptions<TSuccess = void> {
   readonly id: string
   readonly timeout?: string
   readonly goal?: string
-  readonly agentless?: boolean
   readonly success?: Schema.Schema<TSuccess>
 }
 /** Mission metadata, with payload and success checked by Schema. */

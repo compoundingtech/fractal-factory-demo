@@ -78,7 +78,7 @@ export default Fractal.mission(
       )
       // Only a yes goes on, a no ends the mission
       yield* Fractal.step(
-        { id: 'approve', agentless: true },
+        { id: 'approve' },
         Fractal.ask({
           name: 'You approve the change',
           reviewer: ada,

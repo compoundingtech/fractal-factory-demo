@@ -35,7 +35,6 @@ mission "factory/self-improve" state="ready" \
   }
   // Nothing is applied before a person says yes
   step "approve" {
-    agentless
     depends-on {
       step "propose" completed
     }
